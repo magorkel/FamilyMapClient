@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".Fragments.LoginFragment"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".Fragments.LoginFragment">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Server_Host" />
+                <EditText
+                    android:id="@+id/Server_Host"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="10.37.113.131"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Server_Port" />
+                <EditText
+                    android:id="@+id/Server_Post"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="8080"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/User_Name"/>
+                <EditText
+                    android:id="@+id/User_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="sheila"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Password"/>
+                <EditText
+                    android:id="@+id/Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="1234"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/First_Name"/>
+                <EditText
+                    android:id="@+id/First_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Sheila"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Last_Name"/>
+                <EditText
+                    android:id="@+id/Last_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Parker"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Email"/>
+                <EditText
+                    android:id="@+id/Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="s_parker@gmail.com"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Gender"/>
+                <RadioGroup
+                    android:id="@+id/Gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/Male"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:checked="true"
+                        android:text="@string/Male"/>
+                    <RadioButton
+                        android:id="@+id/Female"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:text="@string/Female"/>
+
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow>
+                <Button
+                    android:id="@+id/SIGN_IN"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:text="@string/SIGN_IN"/>
+                <Button
+                    android:id="@+id/REGISTER"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:text="@string/REGISTER"/>
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+</ScrollView>
