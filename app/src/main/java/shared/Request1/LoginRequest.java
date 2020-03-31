@@ -40,7 +40,7 @@ public class LoginRequest
         this.password = password;
     }
 
-    public String serialize()
+    /*public String serialize()
     {
         try
         {
@@ -59,5 +59,5 @@ public class LoginRequest
             e.printStackTrace();
         }
         return this.toString();
-    }
+    }*/
 }

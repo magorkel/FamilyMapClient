@@ -12,9 +12,8 @@ public class RegisterRequest
     private String firstName;
     private String lastName;
     private String gender; //should just be a single letter though
-    private String personID;
 
-    public RegisterRequest (String UserNameIn, String PasswordIn, String EmailIn, String FirstNameIn, String LastNameIn, String GenderIn, String PersonIDIn)
+    public RegisterRequest (String UserNameIn, String PasswordIn, String EmailIn, String FirstNameIn, String LastNameIn, String GenderIn)
     {
         userName = UserNameIn;
         password = PasswordIn;
@@ -22,7 +21,6 @@ public class RegisterRequest
         firstName = FirstNameIn;
         lastName = LastNameIn;
         gender = GenderIn;
-        personID = PersonIDIn;
     }
 
     public String getUserName()
@@ -83,15 +81,5 @@ public class RegisterRequest
     public void setGender(String gender)
     {
         this.gender = gender;
-    }
-
-    public String getPersonID()
-    {
-        return personID;
-    }
-
-    public void setPersonID(String personID)
-    {
-        this.personID = personID;
     }
 }
