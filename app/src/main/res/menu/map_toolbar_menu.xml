@@ -4,10 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
-        android:title="@string/search_description"
-        android:id="@+id/search_button"
+        android:title="@string/search_icon"
+        android:id="@+id/search_icon"
         app:showAsAction="always"
-        android:icon="@drawable/settings_icon">
+        android:icon="@drawable/search_icon">
+    </item>
+    <item
+        android:title="@string/settings_icon"
+        android:id="@+id/settings_icon"
+        app:showAsAction="always"
+        android:icon="@drawable/setting_icon">
     </item>
 
 </menu>

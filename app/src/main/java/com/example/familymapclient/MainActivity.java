@@ -51,8 +51,10 @@ public class MainActivity extends AppCompatActivity
         if(goToMap)
         {
             getMenuInflater().inflate(R.menu.map_toolbar_menu, menu);
-            MenuItem searchItem = menu.findItem(R.id.search_button);
-            searchItem.setEnabled(true);
+            MenuItem search_icon = menu.findItem(R.id.search_icon);
+            search_icon.setEnabled(true);
+            MenuItem settings_icon = menu.findItem(R.id.settings_icon);
+            settings_icon.setEnabled(true);
             return true;
         }
         return super.onCreateOptionsMenu(menu);

@@ -16,5 +16,6 @@
     <string name="server_host">Server_Host</string>
     <string name="todo">TODO</string>
 
-    <string name="search_description">Search Description</string>
+    <string name="settings_icon">settings_icon</string>
+    <string name="search_icon">search_icon</string>
 </resources>
