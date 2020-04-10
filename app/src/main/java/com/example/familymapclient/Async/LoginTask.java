@@ -37,6 +37,7 @@ public class LoginTask extends AsyncTask<LoginRequest, Void, LoginResponse>
         }
         LoginRequest loginRequest = loginRequests[0];
         Client client = new Client(serverHost, serverPort);
+        //client.getPersons(loginRequest.g)
         return client.login(loginRequest);//goes down to next: onPostExecute
     }
 

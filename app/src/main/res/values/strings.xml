@@ -14,4 +14,7 @@
     <string name ="SIGN_IN">SIGN IN</string>
     <string name ="REGISTER">REGISTER</string>
     <string name="server_host">Server_Host</string>
+    <string name="todo">TODO</string>
+
+    <string name="search_description">Search Description</string>
 </resources>

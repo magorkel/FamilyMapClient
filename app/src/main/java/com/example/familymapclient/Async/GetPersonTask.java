@@ -4,9 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.familymapclient.Client;
+import com.example.familymapclient.UserInfo;
 
-import shared.Request1.LoginRequest;
-import shared.Response1.LoginResponse;
 import shared.Response1.SinglePersonResponse;
 
 public class GetPersonTask extends AsyncTask<String, Void, SinglePersonResponse>
@@ -14,6 +13,7 @@ public class GetPersonTask extends AsyncTask<String, Void, SinglePersonResponse>
     private final String serverHost;
     private final int serverPort;
     private final GetPersonTask.Listener listener;
+    //private UserInfo userInfo;
 
     public interface Listener
     {
@@ -38,6 +38,8 @@ public class GetPersonTask extends AsyncTask<String, Void, SinglePersonResponse>
         }
         String personID = strings[0];
         String authToken = strings[1];
+        //userInfo.setAuthToken(authToken);
+        //userInfo.setUserID(personID);
         Client client = new Client(serverHost, serverPort);
         return client.getPerson(personID, authToken);//goes down to next: onPostExecute
     }
@@ -48,4 +50,6 @@ public class GetPersonTask extends AsyncTask<String, Void, SinglePersonResponse>
         super.onPostExecute(singlePersonResponse);
         listener.onGetPersonComplete(singlePersonResponse);
     }
+
+    //public UserInfo getUserInfo() { return userInfo; }
 }

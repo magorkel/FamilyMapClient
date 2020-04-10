@@ -1,5 +1,6 @@
 package com.example.familymapclient.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,8 +19,12 @@ import android.widget.Toast;
 import com.example.familymapclient.Async.GetPersonTask;
 import com.example.familymapclient.Async.LoginTask;
 import com.example.familymapclient.Async.RegisterTask;
+import com.example.familymapclient.Async.UserInfoTask;
+import com.example.familymapclient.MainActivity;
 import com.example.familymapclient.R;
+import com.example.familymapclient.UserInfo;
 
+import shared.Model1.Person;
 import shared.Request1.LoginRequest;
 import shared.Request1.RegisterRequest;
 import shared.Response1.LoginResponse;
@@ -29,10 +34,10 @@ import shared.Response1.SinglePersonResponse;
 
 /**
  * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
  */
 //* Use the {@link LoginFragment#newInstance} factory method to
-public class LoginFragment extends Fragment implements LoginTask.Listener, RegisterTask.Listener, GetPersonTask.Listener
+//* create an instance of this fragment.
+public class LoginFragment extends Fragment implements LoginTask.Listener, RegisterTask.Listener, GetPersonTask.Listener, UserInfoTask.Listener
 {
     private EditTextWatcher serverHostWatcher = new EditTextWatcher();
     private EditTextWatcher serverPortWatcher = new EditTextWatcher();
@@ -44,8 +49,10 @@ public class LoginFragment extends Fragment implements LoginTask.Listener, Regis
 
     private String gender;
 
-    Button signInButton;
-    Button registerButton;
+    private Button signInButton;
+    private Button registerButton;
+
+    public UserInfo userInfo = UserInfo.getUserInfo();
 
     /*public static LoginFragment newInstance()
     {
@@ -194,8 +201,17 @@ public class LoginFragment extends Fragment implements LoginTask.Listener, Regis
                 String authToken = loginResponse.getAuthToken();
                 try
                 {
-                    GetPersonTask getPersonTask = new GetPersonTask(serverHostWatcher.getPassOut(), Integer.parseInt(serverPortWatcher.getPassOut()), this);//this is cast, why doesn't it do it automatically?
-                    getPersonTask.execute(personID, authToken);
+                    //GetPersonTask getPersonTask = new GetPersonTask(serverHostWatcher.getPassOut(), Integer.parseInt(serverPortWatcher.getPassOut()), this);//this is cast, why doesn't it do it automatically?
+                    //getPersonTask.execute(personID, authToken);
+
+                    UserInfoTask userInfoTask = new UserInfoTask(serverHostWatcher.getPassOut(), Integer.parseInt(serverPortWatcher.getPassOut()), this);
+                    userInfoTask.execute(personID, authToken);
+                    //userInfo = userInfoTask.getUserInfo();
+
+
+                    //when they register, call fill, then person and event
+                    //when they login, just call person and event responses
+                    //userInfo = getPersonTask.getUserInfo();
                 }
                 catch(NumberFormatException e)
                 {
@@ -229,8 +245,10 @@ public class LoginFragment extends Fragment implements LoginTask.Listener, Regis
                 String authToken = registerResponse.getUniqueToken();
                 try
                 {
-                    GetPersonTask getPersonTask = new GetPersonTask(serverHostWatcher.getPassOut(), Integer.parseInt(serverPortWatcher.getPassOut()), this);//this is cast, why doesn't it do it automatically?
-                    getPersonTask.execute(personID, authToken);
+                    //GetPersonTask getPersonTask = new GetPersonTask(serverHostWatcher.getPassOut(), Integer.parseInt(serverPortWatcher.getPassOut()), this);//this is cast, why doesn't it do it automatically?
+                    //getPersonTask.execute(personID, authToken);
+                    UserInfoTask userInfoTask = new UserInfoTask(serverHostWatcher.getPassOut(), Integer.parseInt(serverPortWatcher.getPassOut()), this);
+                    userInfoTask.execute(personID, authToken);
                 }
                 catch(NumberFormatException e)
                 {
@@ -267,6 +285,31 @@ public class LoginFragment extends Fragment implements LoginTask.Listener, Regis
         {
             Toast.makeText(LoginFragment.this.getContext(), "Problem talking to server", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onUserInfoComplete()
+    {
+        getActivity().runOnUiThread(new Runnable()
+        {
+            public void run()
+            {
+                String personID = userInfo.getPersonID();
+                Person person = userInfo.getPerson(personID);
+                //toasts
+                Toast.makeText(LoginFragment.this.getContext(), "Logged in " + person.getFirstName() + " " + person.getLastName() + " successfully", Toast.LENGTH_SHORT).show();
+                //send message to main activity - intent
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra(MainActivity.key, true);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onUserInfoFailed()
+    {
+        Toast.makeText(LoginFragment.this.getContext(), "Failed to find user in onGetPersonComplete", Toast.LENGTH_SHORT).show();
     }
 
     private void login()

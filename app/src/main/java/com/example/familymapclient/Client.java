@@ -1,6 +1,5 @@
 package com.example.familymapclient;
 
-import android.app.Person;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -15,7 +14,9 @@ import java.net.URL;
 
 import shared.Request1.LoginRequest;
 import shared.Request1.RegisterRequest;
+import shared.Response1.EventResponse;
 import shared.Response1.LoginResponse;
+import shared.Response1.PersonResponse;
 import shared.Response1.RegisterResponse;
 import shared.Response1.SinglePersonResponse;
 
@@ -163,6 +164,40 @@ public class Client
         return gson.fromJson(stringifiedResponse, SinglePersonResponse.class);
     }
 
+    public PersonResponse getPersons (String authToken)
+    {
+        URL personsURL;
+        try
+        {
+            personsURL = new URL(Client.HTTP, serverHost, serverPort, "/person");
+        }
+        catch (MalformedURLException e)
+        {
+            Log.e("Client", "malformed URL, getPersons");
+            return null;
+        }
+        Gson gson = new Gson();
+        String stringifiedResponse = getURL(personsURL, authToken);
+        return gson.fromJson(stringifiedResponse, PersonResponse.class);
+    }
+
+    public EventResponse getEvents (String authToken)
+    {
+        URL eventsURL;
+        try
+        {
+            eventsURL = new URL(Client.HTTP, serverHost, serverPort, "/event");
+        }
+        catch (MalformedURLException e)
+        {
+            Log.e("Client", "malformed URL, getEvents");
+            return null;
+        }
+        Gson gson = new Gson();
+        String stringifiedResponse = getURL(eventsURL, authToken);
+        return gson.fromJson(stringifiedResponse, EventResponse.class);
+    }
+
     private String getURL(URL url, String authToken)
     {
         try
@@ -170,15 +205,9 @@ public class Client
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setReadTimeout(TIME_OUT);
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Authorization", authToken);//did this even do anything??????
-            //somehow want to get person from connection and check if authToken is correct?
-            //todo: line 174 might be why it doesn't work, change to true
+            connection.setRequestProperty("Authorization", authToken);
             connection.setDoOutput(false);
             connection.connect();
-
-            //OutputStream requestBody = connection.getOutputStream();
-            //requestBody.write(request.getBytes());
-            //requestBody.close();
 
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
             {
