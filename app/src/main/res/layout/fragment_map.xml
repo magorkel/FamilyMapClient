@@ -5,8 +5,7 @@
     android:layout_height="match_parent">
 
 
-    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
@@ -23,16 +22,40 @@
         android:gravity="center"
         android:focusable="true"
         android:layout_alignParentBottom="true">
-
-        <ImageView
-            android:id="@+id/mapGenderIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/todo" />
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hi"/>
+            android:layout_height="100dp"
+            android:text=""/>
 
+        <ImageView
+            android:id="@+id/gender_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:contentDescription="@string/todo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Click on a marker"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/event_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="13sp"
+                android:text="to see event details"
+                android:layout_gravity="center" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -1,17 +1,18 @@
-package com.example.familymapclient;
+package com.example.familymapclient.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.familymapclient.Fragments.LoginFragment;
 import com.example.familymapclient.Fragments.MapFragment;
+import com.example.familymapclient.R;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu)
     {
         //inflate menu resource - xml - map_toolbar_menu
@@ -64,9 +65,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     {
+        Intent intent;
+        switch (item.getItemId())
+        {
+            case R.id.search_icon:
+                intent = new Intent(getActivity(), SearchActivity.class);
+        }
         return super.onOptionsItemSelected(item);
         //when they click on a button in toolbar this one gets activated
-    }
+    }*/
 
 
 }

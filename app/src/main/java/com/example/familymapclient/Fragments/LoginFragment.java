@@ -20,7 +20,7 @@ import com.example.familymapclient.Async.GetPersonTask;
 import com.example.familymapclient.Async.LoginTask;
 import com.example.familymapclient.Async.RegisterTask;
 import com.example.familymapclient.Async.UserInfoTask;
-import com.example.familymapclient.MainActivity;
+import com.example.familymapclient.Activities.MainActivity;
 import com.example.familymapclient.R;
 import com.example.familymapclient.UserInfo;
 
