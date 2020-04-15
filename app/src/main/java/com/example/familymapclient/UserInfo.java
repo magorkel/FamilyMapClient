@@ -151,6 +151,13 @@ public class UserInfo
         return null;
     }
 
+    public Event getEvent (String eventID)
+    {
+        try { return events.get(eventID); }
+        catch (Exception e) { e.printStackTrace(); }
+        return null;
+    }
+
     public String getAuthToken() { return authToken; }
 
     public void setAuthToken (String authToken) { this.authToken = authToken; }

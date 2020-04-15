@@ -1,14 +1,10 @@
 package com.example.familymapclient.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.familymapclient.Fragments.LoginFragment;
 import com.example.familymapclient.Fragments.MapFragment;
@@ -16,7 +12,7 @@ import com.example.familymapclient.R;
 
 public class MainActivity extends AppCompatActivity
 {
-    public final static String key = "familymapclient.MainActivity.Key";
+    public final static String keyGoToMap = "familymapclient.MainActivity.Key";
     boolean goToMap = false;
 
     @Override
@@ -25,7 +21,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        goToMap = getIntent().getBooleanExtra(key, false);
+        goToMap = getIntent().getBooleanExtra(keyGoToMap, false);
 
         FragmentManager manager = getSupportFragmentManager();
 

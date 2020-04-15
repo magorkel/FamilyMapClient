@@ -300,7 +300,7 @@ public class LoginFragment extends Fragment implements LoginTask.Listener, Regis
                 Toast.makeText(LoginFragment.this.getContext(), "Logged in " + person.getFirstName() + " " + person.getLastName() + " successfully", Toast.LENGTH_SHORT).show();
                 //send message to main activity - intent
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra(MainActivity.key, true);
+                intent.putExtra(MainActivity.keyGoToMap, true);
                 startActivity(intent);
             }
         });

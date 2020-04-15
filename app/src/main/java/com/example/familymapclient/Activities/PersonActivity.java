@@ -2,10 +2,9 @@ package com.example.familymapclient.Activities;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.graphics.fonts.Font;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -14,8 +13,10 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.familymapclient.R;
 import com.example.familymapclient.UserInfo;
@@ -23,6 +24,8 @@ import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -178,6 +181,36 @@ public class PersonActivity extends AppCompatActivity
         }
     }
 
+    private static class EventsCompare implements Comparator<Event>
+    {
+        //-1 means o1 comes first
+        //1 means o2 comes first
+        //0 means they are tied
+
+        @Override
+        public int compare(Event o1, Event o2)
+        {
+            if (o1.getEventID().toLowerCase().equals("birth") || o2.getEventType().toLowerCase().equals("death")) return -1;
+            else if (o2.getEventType().toLowerCase().equals("birth") || o1.getEventType().toLowerCase().equals("death")) return 1;
+            else if (o1.getYear() < o2.getYear()) return -1;
+            else if (o2.getYear() < o1.getYear()) return 1;
+            else return o1.getEventType().compareTo(o2.getEventType());
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        if (item.getItemId() == android.R.id.home) {
+            //finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(MainActivity.keyGoToMap, true);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -208,11 +241,12 @@ public class PersonActivity extends AppCompatActivity
         expandableListView = findViewById(R.id.life_events_and_family);
 
         ArrayList<Event> eventsFromUserInfo = UserInfo.getUserInfo().getJustEvents();
-        ArrayList<Event> eventsToGive = new ArrayList<>();
+        final ArrayList<Event> eventsToGive = new ArrayList<>();
         for (Event event : eventsFromUserInfo)
         {
             if (event.getPersonID().equals(currentPerson.getPersonID())) { eventsToGive.add(event); }
         }
+        Collections.sort(eventsToGive, new EventsCompare());
 
         ArrayList<Person> personsFromUserInfo = UserInfo.getUserInfo().getJustPersons();
         final ArrayList<Person> personsToGive = new ArrayList<>();
@@ -238,7 +272,10 @@ public class PersonActivity extends AppCompatActivity
                 //0 event
                 if (groupPosition == 0)
                 {
-
+                    Event clickedEvent = eventsToGive.get(childPosition);
+                    Intent intent = new Intent(PersonActivity.this, EventActivity.class);
+                    intent.putExtra("currentEvent", clickedEvent.getEventID());
+                    startActivity(intent);
                 }
                 else
                 {
@@ -251,10 +288,18 @@ public class PersonActivity extends AppCompatActivity
             }
         });
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Family Map: Person Details");
+        setSupportActionBar(toolbar);
 
+        if (getSupportActionBar() != null)
+        {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         //expandable view.setAdapter
         //put adapter into function
     }
 
-
+    //Toolbar toolbar = findViewById(R.id.toolbar);
 }

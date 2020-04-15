@@ -1,5 +1,6 @@
 package com.example.familymapclient.Fragments;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,6 +28,7 @@ import com.example.familymapclient.Activities.SearchActivity;
 import com.example.familymapclient.Activities.SettingsActivity;
 import com.example.familymapclient.R;
 import com.example.familymapclient.UserInfo;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -86,6 +88,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             markerOptions.icon(getMarkerIconFromDrawable(color));
             Marker marker = mMap.addMarker(markerOptions);
             markerEventHashMap.put(marker, event);
+        }
+
+        String eventID = getActivity().getIntent().getStringExtra("currentEvent");
+        if(eventID != null)
+        {
+            selectedEvent = UserInfo.getUserInfo().getEvent(eventID);
+            eventWindow();
         }
     }
 
@@ -209,6 +218,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     private void eventWindow()
     {
+        LatLng position = new LatLng(selectedEvent.getLatitude(), selectedEvent.getLongitude());
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 4));
+
         infoWindowUpperText = view.findViewById(R.id.name_text);
         infoWindowLowerText = view.findViewById(R.id.event_text);
         genderImage = view.findViewById(R.id.gender_icon);

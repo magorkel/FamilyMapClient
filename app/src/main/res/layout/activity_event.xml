@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.SearchActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Activities.EventActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme"
         android:text="Family Map"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        tools:context=".Activities.SearchActivity"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:id="@+id/RecyclerView"/>
+    <FrameLayout
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
