@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import shared.Model1.Event;
 
@@ -20,22 +21,30 @@ public class UserInfo
     private TreeMap<String, Person> persons;
     private TreeMap<String, Event> events;
 
-    private ArrayList<String> eventTypes = new ArrayList<>();
-    private TreeMap<String, Filter> filters = new TreeMap<>();
     private HashSet<Event> filteredEvents = new HashSet<>();
     private HashMap<Marker, Event>  markerEventHashMap = new HashMap<>();
 
-    private Event selectedEvent;
-    private TreeMap<String, Person> fatherSide = new TreeMap<>();
-    private TreeMap<String, Person> motherSide = new TreeMap<>();
     private TreeMap<String, String> eventTypeColors = new TreeMap<>();
 
-    //private HashMap<String, List<Event>> eventMap;
-    //private HashMap<String, List<Person>> personMap;
+    private TreeMap<String, Person> fatherSide = new TreeMap<>();
+    private TreeMap<String, Person> motherSide = new TreeMap<>();
+    private ArrayList<Event> fathersSideEvents = new ArrayList<>();
+
     private ArrayList<Event> justEvents;
     private ArrayList<Person> justPersons;
 
-    private UserInfo() {}
+    private boolean lifeStoryLineOn = true;
+    private boolean familyTreeLineOn = true;
+    private boolean spouseLinesOn = true;
+    private boolean fathersSideOn = true;
+    private boolean mothersSideOn = true;
+    private boolean maleEventsOn = true;
+    private boolean femaleEventsOn = true;
+
+    private UserInfo()
+    {
+        //fathersSide();
+    }
 
     public static UserInfo getUserInfo()
     {
@@ -121,7 +130,7 @@ public class UserInfo
 
             filteredEvents.add(event);
         }
-    }*/
+    }
 
     private void findParents(Person person, TreeMap family)
     {
@@ -142,7 +151,7 @@ public class UserInfo
     public char findPersonGender(String personID) {
 
         return persons.get(personID).getGender().charAt(0);
-    }
+    }*/
 
     public Person getPerson (String personID)
     {
@@ -194,6 +203,9 @@ public class UserInfo
         colors.add("Azure");
         colors.add("Violet");
         colors.add("Cyan");
+        colors.add("Dark Green");
+        colors.add("Maroon");
+        colors.add("Light Purple");
 
         int i = 0;
         for (String eventType : eventTypes)
@@ -202,6 +214,39 @@ public class UserInfo
             i++;
             if (i > colors.size()) { i = 0; }
         }
+    }
+
+    /*private void makeFathersSide()
+    {
+        for(Person person : userInfo.getJustPersons())
+        {
+            if (persons.containsKey(personID))
+            {
+                Person father = persons.get(person.getFatherID());
+
+            }
+        }
+    }
+
+    private void findParents(Person person, TreeMap family)
+    {
+        if (person.getFatherID() != null && persons.containsKey(person.getFatherID()))
+        {
+            Person father = persons.get(person.getFatherID());
+            family.put(father.getPersonID(), father);
+            findParents(father, family);
+        }
+        if (person.getMotherID() != null && persons.containsKey(person.getMotherID()))
+        {
+            Person mother = persons.get(person.getMotherID());
+            family.put(mother.getPersonID(), mother);
+            findParents(mother, family);
+        }
+    }*/
+
+    public ArrayList<Event> getFathersSideEvents()
+    {
+        return fathersSideEvents;
     }
 
     public HashSet<Event> getFilteredEvents()
@@ -262,5 +307,75 @@ public class UserInfo
         justPersons = new ArrayList<>();
         justPersons.addAll(userInfo.getPersons().values());
         return justPersons;
+    }
+
+    public boolean isLifeStoryLineOn()
+    {
+        return lifeStoryLineOn;
+    }
+
+    public void setLifeStoryLineOn(boolean lifeStoryLineOn)
+    {
+        this.lifeStoryLineOn = lifeStoryLineOn;
+    }
+
+    public boolean isFamilyTreeLineOn()
+    {
+        return familyTreeLineOn;
+    }
+
+    public void setFamilyTreeLineOn(boolean familyTreeLineOn)
+    {
+        this.familyTreeLineOn = familyTreeLineOn;
+    }
+
+    public boolean isSpouseLinesOn()
+    {
+        return spouseLinesOn;
+    }
+
+    public void setSpouseLinesOn(boolean spouseLinesOn)
+    {
+        this.spouseLinesOn = spouseLinesOn;
+    }
+
+    public boolean isFathersSideOn()
+    {
+        return fathersSideOn;
+    }
+
+    public void setFathersSideOn(boolean fathersSideOn)
+    {
+        this.fathersSideOn = fathersSideOn;
+    }
+
+    public boolean isMothersSideOn()
+    {
+        return mothersSideOn;
+    }
+
+    public void setMothersSideOn(boolean mothersSideOn)
+    {
+        this.mothersSideOn = mothersSideOn;
+    }
+
+    public boolean isMaleEventsOn()
+    {
+        return maleEventsOn;
+    }
+
+    public void setMaleEventsOn(boolean maleEventsOn)
+    {
+        this.maleEventsOn = maleEventsOn;
+    }
+
+    public boolean isFemaleEventsOn()
+    {
+        return femaleEventsOn;
+    }
+
+    public void setFemaleEventsOn(boolean femaleEventsOn)
+    {
+        this.femaleEventsOn = femaleEventsOn;
     }
 }

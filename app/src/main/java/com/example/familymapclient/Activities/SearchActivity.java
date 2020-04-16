@@ -9,17 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.familymapclient.R;
 import com.example.familymapclient.UserInfo;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +34,10 @@ public class SearchActivity extends AppCompatActivity
 {
     private static final int EVENT_ITEM_VIEW_TYPE = 0;
     private static final int PERSON_ITEM_VIEW_TYPE = 1;
+
+    String searchWord;
+
+    SearchAdapter adapter;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
@@ -53,10 +61,53 @@ public class SearchActivity extends AppCompatActivity
         RecyclerView recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
 
-        List<Event> events = UserInfo.getUserInfo().getJustEvents();
-        List<Person> persons = UserInfo.getUserInfo().getJustPersons();
+        SearchView searchView = findViewById(R.id.search);
+        //searchWord = (String) searchView.getQuery();
 
-        SearchAdapter adapter = new SearchAdapter(events, persons);
+        final List<Event> events = UserInfo.getUserInfo().getJustEvents();
+        final List<Person> persons = UserInfo.getUserInfo().getJustPersons();
+
+        final List<Event> filteredEvents = new ArrayList<>();
+        final List<Person> filteredPersons = new ArrayList<>();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                filteredEvents.clear();
+                filteredPersons.clear();
+                String q = query.toLowerCase();
+                for(Event event : events)
+                {
+                    Integer year = event.getYear();
+                    if (event.getCountry().toLowerCase().contains(q) || event.getCity().toLowerCase().contains(q) || event.getEventType().toLowerCase().contains(q) || year.toString().contains(q))
+                    {
+                        filteredEvents.add(event);
+                    }
+                }
+                for(Person person : persons)
+                {
+                    if (person.getFirstName().toLowerCase().contains(q) || person.getLastName().toLowerCase().contains(q))
+                    {
+                        filteredPersons.add(person);
+                    }
+                }
+                if (filteredEvents.size() == 0 && filteredPersons.size() == 0)
+                {
+                    Toast.makeText(SearchActivity.this, "No Match found",Toast.LENGTH_LONG).show();
+                }
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        adapter = new SearchAdapter(filteredEvents, filteredPersons);
         recyclerView.setAdapter(adapter);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -99,8 +150,12 @@ public class SearchActivity extends AppCompatActivity
         @Override
         public void onBindViewHolder(@NonNull SearchViewHolder holder, int position)
         {
-            if(position < events.size()) { holder.bind(events.get(position)); }
-            else { holder.bind(persons.get(position)); }
+            if (position < persons.size()){ holder.bind(persons.get(position)); }
+            else if(position < events.size() + persons.size()) { holder.bind(events.get(position - persons.size())); }
+            else
+            {
+                System.out.println("don't know what's going on");
+            }
         }
 
         @Override
@@ -185,9 +240,19 @@ public class SearchActivity extends AppCompatActivity
                 case "Red": return drawable = new IconDrawable(SearchActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.red);
                 case "Azure": return drawable = new IconDrawable(SearchActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.azure);
                 case "Violet": return drawable = new IconDrawable(SearchActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.violet);
+                case "Dark Green": return drawable = new IconDrawable(SearchActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.dark_green);
+                case "Maroon": return drawable = new IconDrawable(SearchActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.maroon);
+                case "Light Purple": return drawable = new IconDrawable(SearchActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.light_purple);
                 default:
                     return drawable = new IconDrawable(SearchActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.cyan);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

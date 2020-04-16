@@ -175,6 +175,9 @@ public class PersonActivity extends AppCompatActivity
                 case "Red": return drawable = new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.red);
                 case "Azure": return drawable = new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.azure);
                 case "Violet": return drawable = new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.violet);
+                case "Dark Green": return drawable = new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.dark_green);
+                case "Maroon": return drawable = new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.maroon);
+                case "Light Purple": return drawable = new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.light_purple);
                 default:
                     return drawable = new IconDrawable(PersonActivity.this, FontAwesomeIcons.fa_map_marker).colorRes(R.color.cyan);
             }
@@ -300,6 +303,4 @@ public class PersonActivity extends AppCompatActivity
         //expandable view.setAdapter
         //put adapter into function
     }
-
-    //Toolbar toolbar = findViewById(R.id.toolbar);
 }

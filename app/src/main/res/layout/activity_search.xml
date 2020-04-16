@@ -16,10 +16,20 @@
         android:theme="@style/AppTheme"
         android:text="Family Map"/>
 
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         tools:context=".Activities.SearchActivity"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/RecyclerView"/>
+    <androidx.recyclerview.widget.RecyclerView
+        tools:context=".Activities.SearchActivity"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/EventsRecyclerView"/>
 
 </LinearLayout>
